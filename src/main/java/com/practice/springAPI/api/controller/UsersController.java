@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class UsersController {
 
@@ -17,8 +19,12 @@ public class UsersController {
         this.usersService = usersService;
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public Users getUsers(@RequestParam Integer id) {
-        return usersService.getUsers(id);
+        Optional users = usersService.getUsers(id);
+        if (users.isPresent()) {
+            return (Users) users.get();
+        }
+        return null;
     }
 }

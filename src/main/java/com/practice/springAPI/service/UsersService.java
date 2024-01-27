@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsersService {
@@ -23,11 +24,14 @@ public class UsersService {
         usersList.addAll(Arrays.asList(users1, users2, users3, users4));
     }
 
-    public Users getUsers(Integer id) {
+    public Optional<Users> getUsers(Integer id) {
+        Optional optional = Optional.empty();
         for (Users users: usersList) {
             if (id == users.getId()) {
-                return  users;
+                optional = Optional.of(users);
+                return optional;
             }
         }
+        return optional;
     }
 }
